@@ -1,0 +1,8 @@
+# Ignore the translator binary.
+audio
+
+# Ignore compiled object files.
+*.o
+
+# Ignore MIG-generated source files.
+ioctl-*.[ch]

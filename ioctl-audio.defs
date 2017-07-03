@@ -1,0 +1,43 @@
+/*
+ * Copyright (C) 2017 David Michael <fedora.dm0@gmail.com>
+ *
+ * This file is part of the Hurd rump audio translator.
+ *
+ * The Hurd rump audio translator is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * The Hurd rump audio translator is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * the Hurd rump audio translator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <hurd/hurd_types.defs>
+
+/* This value is for ioctl group 's', since Hurd can't use 'A'.  */
+subsystem sioctl 152000;
+
+/* Include C type definitions working around Hurd ioctl limitations.  */
+#include "buffer.h"
+import "ioctl.h";
+type audio_info_buffer_t = array[AUDIO_INFO_BUFFER_INT64S] of int64_t;
+
+/* Skip unused ioctl numbers 0 - 20.  */
+skip; skip; skip; skip; skip; skip; skip;
+skip; skip; skip; skip; skip; skip; skip;
+skip; skip; skip; skip; skip; skip; skip;
+
+/* 21 AUDIO_GETINFO */
+routine sioctl_audio_getinfo (
+	reqport: io_t;
+	out info: audio_info_buffer_t);
+
+/* 22 AUDIO_SETINFO */
+routine sioctl_audio_setinfo (
+	reqport: io_t;
+	inout info: audio_info_buffer_t);
